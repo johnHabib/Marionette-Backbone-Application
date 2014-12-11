@@ -34,6 +34,7 @@ define(function (require) {
                 router.navigate('home');
             });
 
+            controller.index();
         });
 
 

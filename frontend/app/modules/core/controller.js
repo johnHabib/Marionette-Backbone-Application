@@ -4,31 +4,27 @@ define(function(require){
 	return Marionette.Controller.extend({
 		'initialize': function(){
 			this.app = this.options.app;
-			console.log('I am in Initialize Marionette.Controller');
 		},
-		'onRoute': function(moduleName) {
-		    try {
-		        var app = this.app;
-		        if (moduleName && !app[moduleName]) {
-		            require(['modules/' + moduleName + '/module'], function(module) {
-		                console.log('loaded: ' + moduleName);
-		                module(app);
-		            });
-		        }
-		       // this.onHomeRoute();
-		       // this.nav();
-		    } catch (e) {
-		        console.log('An error has occurred: ' + e.message);
-		    } finally {
-		        console.log('I am alerted regardless of the outcome above');
-		    }
+		onRoute: function(route, path, fragments){
+			var app = this.app,
+				moduleName;
+			path = path || (fragments.length ? fragments[0] : null);
+			if( path ){
+				fragments = path.split('/');
+				moduleName = fragments.length ? fragments[0] : null;
+			}
+			if( moduleName && !app[moduleName] ){
+				console.log('Attempting to load module: '+moduleName);
+				require(['modules/'+moduleName+'/module'], function(module){
+					console.log('loaded: '+moduleName);
+					module(app);
+				});
+			}else{
+				console.log(moduleName + ' is invalid or already loaded');
+			}
 		},
-		'onHomeRoute': function(){
-
-			console.log('I am in Home');
-		},
-		'onNewRoute': function(){
-			console.log('I am in onNewRoute');
-		},
+		'onTest': function(route){
+			console.log('controller: '+route);
+		}
 	});
 });

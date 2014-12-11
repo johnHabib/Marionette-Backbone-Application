@@ -5,15 +5,14 @@ define(function(require){
 	return function(app){
 		app.module('core', function(){
 			this.controller = new Controller({ app : app, logger : this.logger });
-			console.log('I am Controller');
+
             /**
              * This modules router
              * @type {Router}
              */
-            this.router = new Router({ controller : this.controller });
-            console.log('I am Router');
-            this.router.on('route', this.controller.onRoute);
-            console.log('I am a listener');
+            this.router = new Router({ app: app, controller : this.controller });
+            // this.router.onRoute = _.bind(this.controller.onRoute, this.controller);
+            // this.router.on('route', this.controller.onRoute);
 		});
 	};
 });
