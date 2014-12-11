@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Marionette Frontend</title>
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+
+    <link rel="shortcut icon" href="<%- config.paths.staticFiles %>/favicon.ico" type="image/x-icon" />
+
+</head>
+<body lang="en">
+
+    <span id="container"></span>
+
+    <script>
+        var application = <%= JSON.stringify(config) %>;
+    </script>
+    <% if(target == 'development') { %>
+    <script>
+        var requirejs = <%= requirejs %>;
+    </script>
+    <script data-main="<%- config.paths.root %>/app/bootstrap.js" src="<%- config.paths.root %>/bower_components/requirejs/require.js"></script>
+    <% } else { %>
+    <script src="<%- config.paths.staticFiles %>/javascript/build.min.js"></script>
+    <% } %>
+
+</body>
+</html>
